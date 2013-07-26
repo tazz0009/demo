@@ -2,6 +2,7 @@ package com.demo.main.repository;
 
 import javax.annotation.Resource;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -18,8 +19,7 @@ public class DemoRepositoryTests {
 
 	@Test
 	public void test() {
-		assert "test" == demoRepository.test();
-
+		Assert.assertNotNull(demoRepository.test());
 	}
 
 }

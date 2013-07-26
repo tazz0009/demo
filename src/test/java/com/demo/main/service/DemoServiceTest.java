@@ -2,6 +2,7 @@ package com.demo.main.service;
 
 import javax.annotation.Resource;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -17,6 +18,6 @@ public class DemoServiceTest {
 	
 	@Test
 	public void test(){
-		assert "test" == demoService.test();
+		Assert.assertNotNull("DemoService test method's return value must be not null!", demoService.test());
 	}
 }
