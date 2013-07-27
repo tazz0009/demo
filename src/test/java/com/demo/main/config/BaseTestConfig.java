@@ -11,14 +11,17 @@ import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
+/**
+ * 测试环境配置
+ * 
+ * @author lym125
+ * 
+ */
 @Configuration
-// 启用了对类包进行扫描以实施注释驱动 Bean 定义的功能，同时还启用了注释驱动自动注入的功能
 @ComponentScan(basePackages = { "com.demo.main.repository",
 		"com.demo.main.service" })
-// 导入jdbc_development.properties文件
-@PropertySource("classpath:jdbc_development.properties")
-public class AppConfig {
-
+@PropertySource("classpath:jdbc_test.properties")
+public class BaseTestConfig {
 	@Resource
 	private Environment env;
 
@@ -31,14 +34,9 @@ public class AppConfig {
 		dataSource.setPassword(env.getProperty("jdbc.password"));
 		return dataSource;
 	}
-
-	/**
-	 * 配置jdbc
-	 * 
-	 * @return JdbcTemplate
-	 */
+	
 	@Bean
-	public JdbcTemplate jdbcTemplate() {
+	public JdbcTemplate jdbcTemplate(){
 		return new JdbcTemplate(dataSource());
 	}
 }

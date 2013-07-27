@@ -8,10 +8,10 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.demo.main.config.AppConfig;
+import com.demo.main.config.BaseTestConfig;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { AppConfig.class })
+@ContextConfiguration(classes = { BaseTestConfig.class })
 public class DemoRepositoryTests {
 
 	@Resource
@@ -20,6 +20,11 @@ public class DemoRepositoryTests {
 	@Test
 	public void test() {
 		Assert.assertNotNull(demoRepository.test());
+	}
+	
+	@Test
+	public void findDemosCountByJdbc() {
+		demoRepository.findDemosCountByJdbc();
 	}
 
 }
