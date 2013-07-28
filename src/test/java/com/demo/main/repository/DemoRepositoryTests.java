@@ -22,9 +22,4 @@ public class DemoRepositoryTests {
 		Assert.assertNotNull(demoRepository.test());
 	}
 	
-	@Test
-	public void findDemosCountByJdbc() {
-		demoRepository.findDemosCountByJdbc();
-	}
-
 }

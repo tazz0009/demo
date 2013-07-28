@@ -1,5 +1,7 @@
 package com.demo.main.config;
 
+import java.util.Properties;
+
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
@@ -8,8 +10,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 
 @Configuration
 // 启用了对类包进行扫描以实施注释驱动 Bean 定义的功能，同时还启用了注释驱动自动注入的功能
@@ -22,6 +24,19 @@ public class AppConfig {
 	@Resource
 	private Environment env;
 
+	private Properties getHibernateProperties() {
+		Properties hibernateProperties = new Properties();
+		hibernateProperties.setProperty("hibernate.dialect",
+				env.getProperty("hibernate.dialect"));
+		hibernateProperties.setProperty("hibernate.show_sql",
+				env.getProperty("hibernate.show_sql"));
+		hibernateProperties.setProperty("hibernate.hbm2ddl.auto",
+				env.getProperty("hibernate.hbm2ddl.auto"));
+		hibernateProperties.setProperty("hibernate.generate_statistics",
+				env.getProperty("hibernate.generate_statistics"));
+		return hibernateProperties;
+	}
+
 	@Bean
 	public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -32,13 +47,12 @@ public class AppConfig {
 		return dataSource;
 	}
 
-	/**
-	 * 配置jdbc
-	 * 
-	 * @return JdbcTemplate
-	 */
 	@Bean
-	public JdbcTemplate jdbcTemplate() {
-		return new JdbcTemplate(dataSource());
+	public LocalSessionFactoryBean sessionFactory() {
+		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
+		sessionFactory.setHibernateProperties(getHibernateProperties());
+		sessionFactory.setDataSource(dataSource());
+		return sessionFactory;
 	}
+
 }

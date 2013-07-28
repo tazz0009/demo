@@ -2,7 +2,7 @@ package com.demo.main.repository.impl;
 
 import javax.annotation.Resource;
 
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
 import com.demo.main.repository.DemoRepository;
@@ -11,8 +11,8 @@ import com.demo.main.repository.DemoRepository;
 public class DemoRepositoryImpl implements DemoRepository {
 
 	@Resource
-	private JdbcTemplate jdbcTemplate;
-	
+	private SessionFactory sessionFactory;
+
 	@Override
 	public String test() {
 		// TODO Auto-generated method stub
@@ -20,10 +20,9 @@ public class DemoRepositoryImpl implements DemoRepository {
 	}
 
 	@Override
-	public int findDemosCountByJdbc() {
+	public int findAllDemosCount() {
 		// TODO Auto-generated method stub
-		return jdbcTemplate.queryForObject("select count(id) from demos",
-				Integer.class);
+		return 0;
 	}
 
 }
