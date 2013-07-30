@@ -12,6 +12,10 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.JpaVendorAdapter;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
 @Configuration
 // 启用了对类包进行扫描以实施注释驱动 Bean 定义的功能，同时还启用了注释驱动自动注入的功能
@@ -54,5 +58,29 @@ public class AppConfig {
 		sessionFactory.setDataSource(dataSource());
 		return sessionFactory;
 	}
+
+	// ---------Start JPAConfig
+	@Bean
+	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+		LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
+		emf.setDataSource(dataSource());
+		emf.setPackagesToScan("com.demo.main.model");
+
+		JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+		emf.setJpaVendorAdapter(vendorAdapter);
+		emf.setJpaProperties(getHibernateProperties());
+
+		return emf;
+	}
+
+	@Bean
+	public JpaTransactionManager transactionManager() {
+		JpaTransactionManager transactionManager = new JpaTransactionManager();
+		transactionManager.setEntityManagerFactory(entityManagerFactory()
+				.getObject());
+		return transactionManager;
+	}
+
+	// ---------End JPAConfig
 
 }

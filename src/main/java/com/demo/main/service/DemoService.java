@@ -1,6 +1,11 @@
 package com.demo.main.service;
 
+import com.demo.main.model.Demo;
+
 
 public interface DemoService {
-	String test();
+	
+	void save(Demo demo);
+	
+	void delete(Integer id);
 }
