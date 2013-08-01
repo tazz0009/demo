@@ -8,7 +8,7 @@ public interface DemoRepository {
 
 	void save(Demo demo);
 	
-	void delete(Integer id);
+	void delete(Demo demo);
 	
 	Demo findById(Integer id);
 	

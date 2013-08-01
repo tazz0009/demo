@@ -26,7 +26,14 @@ public class DemoServiceImpl implements DemoService {
 	@Override
 	public void delete(Integer id) {
 		// TODO Auto-generated method stub
-		demoRepository.delete(id);
+		Demo demo = demoRepository.findById(id);
+		demoRepository.delete(demo);
+	}
+
+	@Override
+	public Demo findById(Integer id) {
+		// TODO Auto-generated method stub
+		return demoRepository.findById(id);
 	}
 
 }

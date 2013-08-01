@@ -3,6 +3,7 @@ package com.demo.main.config;
 import java.util.Properties;
 
 import javax.annotation.Resource;
+import javax.persistence.EntityManager;
 import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
@@ -71,6 +72,11 @@ public class AppConfig {
 		emf.setJpaProperties(getHibernateProperties());
 
 		return emf;
+	}
+	
+	@Bean
+	public EntityManager entityManager(){
+		return entityManagerFactory().getObject().createEntityManager();
 	}
 
 	@Bean
