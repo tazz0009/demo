@@ -11,6 +11,8 @@
 		<junit.version>4.11</junit.version>
 		<spring.version>3.2.3.RELEASE</spring.version>
 		<hibernate.version>4.2.3.Final</hibernate.version>
+		<logback.version>1.0.13</logback.version>
+		<slf4j.version>1.7.5</slf4j.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -34,6 +36,12 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
 			<version>${spring.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -66,6 +74,26 @@
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>${hibernate.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-core</artifactId>
+			<version>${logback.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>${logback.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>demo</finalName>
@@ -75,6 +103,12 @@
 				<artifactId>jetty-maven-plugin</artifactId>
 				<configuration>
 					<scanIntervalSeconds>5</scanIntervalSeconds>
+					<systemProperties>
+						<systemProperty>
+							<name>logback.configurationFile</name>
+							<value>src/test/resources/logback_development.xml</value>
+						</systemProperty>
+					</systemProperties>
 				</configuration>
 				<version>${jetty.version}</version>
 			</plugin>

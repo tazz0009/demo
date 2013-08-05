@@ -18,7 +18,7 @@ public class DemoController {
 	
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
 	public String test(){
-		return "/demos/test";
+		return "demos/test";
 	}
 	
 	@RequestMapping(value = "create", method = RequestMethod.GET)
@@ -26,7 +26,7 @@ public class DemoController {
 		Demo demo = new Demo();
 		demo.setName("lijing");
 		demoService.save(demo);
-		return "redirect:/demos/test";
+		return "redirect:demos/test";
 	}
 	
 }
